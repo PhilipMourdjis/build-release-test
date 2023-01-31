@@ -1,9 +1,15 @@
-from conans import ConanFile
+from conan import ConanFile
+from conan.tools.cmake import CMakeToolchain
 
 
 class TestConan(ConanFile):
-    generators = "cmake"
+    generators = "CMakeDeps"
     settings = "os", "compiler", "arch", "build_type"
 
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.user_presets_path = False
+        tc.generate()
+
     def requirements(self):
-        self.requires("boost/1.78.0")
+        self.requires("catch2/3.3.0")

@@ -6,10 +6,6 @@ if(NOT DEFINED CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "")
 endif()
 
-# Conan setup
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-set(CMAKE_FIND_ROOT_PATH ${CONAN_CMAKE_MODULE_PATH})
-
 # Project settings
 project(BuildAndReleaseTest LANGUAGES CXX)
 

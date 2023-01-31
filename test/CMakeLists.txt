@@ -6,9 +6,8 @@ target_sources(build_release_test
 )
 
 target_link_libraries(build_release_test
-    PRIVATE
-        Boost::boost
-        Boost::unit_test_framework
+    PUBLIC
+    Catch2::Catch2WithMain
 )
 
 if (PRESET_IN_USE)

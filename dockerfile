@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:jammy
 LABEL name="build-release-test"
 
 RUN apt-get -qq update \
@@ -9,11 +9,11 @@ RUN apt-get -qq update \
         git \
         ninja-build \
         sudo \
-        g++-9 \
+        g++-11 \
         python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install conan
+RUN pip install conan --pre
 
 RUN apt-get -qq update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -25,7 +25,6 @@ ARG UID=1000
 ARG GID=1000
 RUN groupadd -g $GID -o $USERNAME \
     && useradd -m -u $UID -g $GID -o -s /bin/bash $USERNAME
-USER test_user
+USER $USERNAME
 
-RUN conan profile new default --detect
-RUN conan profile update settings.compiler.libcxx=libstdc++11 default
+RUN conan profile detect

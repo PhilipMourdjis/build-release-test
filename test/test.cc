@@ -1,27 +1,12 @@
-#define BOOST_TEST_MODULE build_and_release_tests
+#include <catch2/catch_test_macros.hpp>
 
-#include <boost/test/unit_test.hpp>
-#include <string>
-
-BOOST_AUTO_TEST_SUITE(TestSuite)
-
-BOOST_AUTO_TEST_CASE(TestOne)
-{
-
-    BOOST_CHECK((true));
+unsigned int Factorial( unsigned int number ) {
+    return number <= 1 ? number : Factorial(number-1)*number;
 }
 
-BOOST_AUTO_TEST_CASE(PresetTest)
-{
-
-    std::string preset_check = "Presets are";
-    std::string preset_in_use = "not in use";
-
-#ifdef PRESETS_IN_USE
-    preset_in_use = preset_check;
-#endif
-
-    BOOST_CHECK((preset_check == preset_in_use));
+TEST_CASE( "Factorials are computed", "[factorial]" ) {
+    REQUIRE( Factorial(1) == 1 );
+    REQUIRE( Factorial(2) == 2 );
+    REQUIRE( Factorial(3) == 9 );
+    REQUIRE( Factorial(10) == 3628800 );
 }
-
-BOOST_AUTO_TEST_SUITE_END()
